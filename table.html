@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<head>
+          <meta id="bmstable" name="bmstable" content="header.json" />
+</head>
+
+<table id="displaytable">
+        <tr>
+                <th>Level</th>
+                <th>Name</th>
+        </tr>
+</table>
+
+<script>
+        let headerURL = document.getElementById("bmstable").content;
+        fetch(headerURL).then(res => res.json()).then(header => {
+                fetch(header.data_url).then(res => res.json()).then(songs => {
+
+                        let table = document.getElementById("displaytable");
+                        songs.forEach(song => {
+
+                                let songrow = table.insertRow();
+
+                                let songLevel = songrow.insertCell();
+                                songLevel.innerHTML = song.level;
+
+                                let songTitle = songrow.insertCell();
+                                songTitle.innerHTML = song.title;
+                        });
+                });
+        }); 
+</script>
